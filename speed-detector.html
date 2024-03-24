@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demerit Point Calculator</title>
+</head>
+<body>
+    <h1>Demerit Point Calculator</h1>
+    <p>Enter your speed (km/h):</p>
+    <input type="number" id="speedInput" min="0" required>
+    <button onclick="calculateDemeritPoints()">Calculate Points</button>
+    <br>
+    <div id="result"></div>
+
+    <script>
+        // function declaration for the function that calculates the demerit points
+  function speedPointsCalculator(speed) {
+  const speedLimit = 70;
+  const kmPerPoint = 5;
+
+  if (speed <= speedLimit) {
+    return "Okay"; // Return a message for valid speed
+  } else if (speed > speedLimit && speed <= 130) {
+    const overspeed = speed - speedLimit;
+    const demeritPoints = Math.floor(overspeed / kmPerPoint);//here, the points are calculated as long as the speed is between 70 and 130. we calculate the overspeed then divide by the km per point. we use the math.floor in order to round down to nearest interger
+    return `You have ${demeritPoints} demerit points.`; // Return message with points
+  } else {
+    return "License suspended."; // Return message for suspended license
+  }
+}
+
+function calculateDemeritPoints() { //handles user input
+  const speedInput = document.getElementById("speedInput");
+  const speed = parseFloat(speedInput.value);
+
+  if (isNaN(speed) || speed < 0) {
+    alert("Invalid input. Please enter a valid number for speed.");
+    return;
+  } //makes sure the speed put is above 0
+
+  const result = document.getElementById("result");
+  const message = speedPointsCalculator(speed);
+  result.textContent = message;
+}
+
+
+    </script>
+</body>
+</html>
